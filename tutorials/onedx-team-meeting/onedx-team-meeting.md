@@ -61,7 +61,7 @@ Format: `![Alt Text](url)`
 
   **Example:**
 ![Image](https://octodex.github.com/images/yaktocat.png)
-![Example](/tutorials/uat-test-2/ico-01.png)
+
 
 ***Code blocks:***
 
