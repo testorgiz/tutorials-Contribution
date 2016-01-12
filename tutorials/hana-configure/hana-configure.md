@@ -21,18 +21,11 @@ Beginners will take **30 minutes** to finish this tutorial.
 ### Host Configuration
 Access your HANA instance that was created in ["How to create an SAP HANA Developer Edition in the Cloud"](http://go-qa.sap.com/developer/tutorials/setup-hana-for-cloud.html).
 
-Chose Notepad as the Open with Editor:
-
-![](https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/1.png)
+Open with an Editor:
 
 Replace the current IP address in front of the hostname hanapm with the specific IP address for this workshop which was supplied by your instructor:
 
-![](https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/2.png)
-
 Save the content. Exit Notepad:
-
-![](https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/3.png)
-
 
 ### HANA Studio Configuration
 ### ![](http://go.sap.com/dam/application/shared/icons/icon_gold_circle_01.svg) Adding the HANA Studio Perspectives
@@ -111,9 +104,7 @@ You should now see the local workspace mapped to the remote workspace in the SAP
 
 ### ![](http://go.sap.com/dam/application/shared/icons/icon_gold_circle_03.svg) Launching the SAP HANA Web-based Development Workbench and creating initial development artifacts
 
-We will primarily work in the Browser Based IDE – the SAP HANA Web-based Development Workbench. Launch Google Chrome from the Windows desktop:
-
-![](https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/16.png)
+We will primarily work in the Browser Based IDE – the SAP HANA Web-based Development Workbench. Launch a browser from the desktop:
 
 Input URL for your HANA system ```http://hanapm:8000```
 
