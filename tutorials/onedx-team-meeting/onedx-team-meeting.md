@@ -6,6 +6,7 @@ tags: [products:tech/73554900100700000996]
 
 Word with Umlaut:
 äöüßÄÖÜ
+[link with >](https://github.com/testorgiz/tutorials/blob/master/tutorials/hana-configure-gt/hana-configure%3Egt.md)
 
 You can use:
 
