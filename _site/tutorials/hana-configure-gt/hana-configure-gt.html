@@ -1,0 +1,158 @@
+<h2 id="prerequisites">Prerequisites</h2>
+<p><a href="http://go-qa.sap.com/developer/tutorials/setup-hana-for-cloud.html">How to create an SAP HANA Developer Edition in the Cloud</a></p>
+
+<h2 id="next-steps">Next Steps</h2>
+<p>Next steps is option, hence, may not be present.
+<a href="http://go-qa.sap.com/developer/tutorials/hana-web-development-workbench.html">Hello World!</a></p>
+
+<h2 id="details">Details</h2>
+
+<h3 id="you-will-learn">You will learn</h3>
+
+<ol>
+  <li>How to use HANA Studio Perspectives</li>
+  <li>How to create a connection to the HANA back end</li>
+  <li>Getting started with the HANA Web based development workbench</li>
+</ol>
+
+<h3 id="time-to-compete">Time to Compete</h3>
+
+<p>Beginners will take 30 minutes to finish this tutorial.</p>
+
+<h2 id="host-configuration">Host Configuration</h2>
+
+<p>Access your HANA instance that was created in <a href="http://go-qa.sap.com/developer/tutorials/setup-hana-for-cloud.html">“How to create an SAP HANA Developer Edition in the Cloud”</a>.</p>
+
+<p>Chose Notepad as the Open with Editor.</p>
+
+<p><img src="https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_host_02.png" alt="" /></p>
+
+<p>Replace the current IP address in front of the hostname hanapm with the specific IP address for this workshop which was supplied by your instructor.</p>
+
+<p><img src="https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_host_03.png" alt="" /></p>
+
+<p>Save the content. Exit Notepad.</p>
+
+<p><img src="https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_host_04.png" alt="" /></p>
+
+<h3 id="getting-help">Getting Help</h3>
+
+<p>If you need addition help resources beyond this document, we would suggest the following content:</p>
+
+<ul>
+  <li>The Online Help at <a href="http://help.sap.com/hana/SAP_HANA_Developer_Guide_en.pdf">http://help.sap.com/hana/SAP_HANA_Developer_Guide_en.pdf</a></li>
+  <li>The integrated help within SAP HANA Studio (content  identical to the above mentioned online help)</li>
+  <li>SAPUI5 SDK (installed on your HANA Server) /sap/ui5/1/sdk/index.html#content/Overview.html</li>
+</ul>
+
+<h3 id="source-code-solutions">Source code solutions</h3>
+
+<p>All source code solutions and templates for all exercises in this document can be found in the following webpage: <a href="http://www.cnn.com/">http://www.cnn.com/</a></p>
+
+<blockquote>
+  <h3 id="warning">Warning</h3>
+  <p>Both the Amazon AWS and Microsoft Azure accounts will charge you for time on those cloud systems.</p>
+</blockquote>
+
+<blockquote>
+  <p>If you want to create a free developer account - with no cloud VM charges - on the HANA Cloud Platform, do not follow this tutorial.  Click here to sign up for the account, and then proceed to the next tutorial.</p>
+</blockquote>
+
+<blockquote>
+  <p>Note must be displayed as a “blockquote” with red backgrounnd, example, [](http://go.sap.com/developer/tutorials/setup-hana-for-cloud.html).</p>
+</blockquote>
+
+<h2 id="hana-studio-configuration">HANA Studio Configuration</h2>
+
+<h3 id="httpgosapcomdamapplicationsharediconsicongoldcircle01svg-adding-the-hana-studio-perspectives"><img src="http://go.sap.com/dam/application/shared/icons/icon_gold_circle_01.svg" alt="" /> Adding the HANA Studio Perspectives</h3>
+
+<p>Open the HANA Studio via the Windows Start menu or via the Icon on your Start bar.</p>
+
+<p>If your HANA Studio opens to the following Overview screen, simply press Workbench to return to the full Studio tooling.
+<img src="https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_studio_01.png" alt="" /></p>
+
+<p>To support the new developer centric workflow, there are two additional Eclipse Perspectives which have been added to SAP HANA Studio. These are not displayed by default.</p>
+
+<p>In the upper right corner of your SAP HANA Studio, there is an add Perspectives button.  Press this.
+<img src="https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_studio_02.png" alt="" /></p>
+
+<blockquote>
+  <h3 id="note">Note</h3>
+</blockquote>
+
+<blockquote>
+  <p>This is a note.</p>
+</blockquote>
+
+<blockquote>
+  <p>Note must be displayed as a “blockquote” with blue backgrounnd, example, [](http://hcp.sap.com/developers/TutorialCatalog/jav100_01_java_setup_eclipse.html).</p>
+</blockquote>
+
+<p>Add the SAP HANA Development perspective. This is the perspective you should be using for almost this entire workshop.
+<img src="https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_studio_03.png" alt="" /></p>
+
+<h3 id="httpgosapcomdamapplicationsharediconsicongoldcircle02svg-create-a-connection-to-the-hana-server"><img src="http://go.sap.com/dam/application/shared/icons/icon_gold_circle_02.svg" alt="" /> Create a connection to the HANA server</h3>
+<p>Make sure you are in the SAP HANA Development perspective by clicking on the button.
+<img src="https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_studio_06.png" alt="" /></p>
+
+<blockquote>
+  <h3 id="information">Information</h3>
+</blockquote>
+
+<blockquote>
+  <p>This is “Information” blockqoute.</p>
+</blockquote>
+
+<blockquote>
+  <p>Note must be displayed as a “blockquote” with yellow backgrounnd, example, [](http://hcp.sap.com/developers/TutorialCatalog/jav100_3_maven_based_projects.html).</p>
+</blockquote>
+
+<p>Click on the “Systems” view.  Right click in the white space below this tab and choose “Add System…”.
+<img src="https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_studio_07.png" alt="" /></p>
+
+<p>Input the server hostname: hanapm</p>
+
+<p>Input the instance number: 00</p>
+
+<p>Enter a meaningful description of your choice.  Press the Next button.
+<img src="https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_studio_08.png" alt="" /></p>
+
+<h2 id="optional---use-ssh-to-log-in-to-the-linux-os">Optional - Use SSH to log in to the Linux OS</h2>
+<p>Connecting to the underlying Linux OS in the cloud instances is different for each provider.  Follow the instructions for the cloud provider you have chosen to host HANA.</p>
+
+<h3 id="amazon-aws">Amazon AWS</h3>
+<p>To connect to Amazon AWS, you must use the key-pair that was provided by Amazon when the instance was created.</p>
+
+<h4 id="connecting-to-aws-from-windows">Connecting to AWS from Windows</h4>
+
+<ol>
+  <li>Using the key-pair file (*.pem) downloaded from Amazon, create a private key file for putty using puttygen.exe.</li>
+  <li>Open PuTTY on your computer, and enter the IP Address for your instance in the Host Name (or IP address) field. Click the <code>Open</code> button.</li>
+  <li>When the connection is opened, enter ‘root’ as the user. You can now change the default password for the hdbadm OS user with the command <code>passwd hdbadm</code>. Your new password must be entered twice, and it will be checked to ensure it is sufficiently secure. Once you have entered an appropriate password twice, then you are finished!</li>
+</ol>
+
+<p>For more detailed instructions, check out the <a href="http://docs.aws.amazon.com/gettingstarted/latest/computebasics-linux/getting-started-deploy-app-connect.html">Amazon AWS guide to Connect Your Amazon EC2 Instance</a>.</p>
+
+<h4 id="connecting-to-aws-from-mac-or-unix">Connecting to AWS from Mac or Unix</h4>
+
+<p>From Linux or Mac OS-X, in terminal window, run this command: <code>ssh -i [hanakey].pem [IP Address] -l root</code>  (Replace [hanakey].pem with the name of your key-pair file, and [IP Address] with the IP address of your instance.)</p>
+
+<p>For more detailed instructions, check out the <a href="http://docs.aws.amazon.com/gettingstarted/latest/computebasics-linux/getting-started-deploy-app-connect.html">Amazon AWS guide to Connect Your Amazon EC2 Instance</a>.</p>
+
+<h2 id="a-few-notes">A few notes</h2>
+<ul>
+  <li>Some corporate firewalls may not allow SSH to Amazon cloud.  You may have to work with your IT organization to resolve this.</li>
+  <li>User hdbadm owns sap software in the Linux instance. To restart the database without restarting the entire Linux instance, switch to user hdbadm and perform stop and start operations using the following commands:
+    <ul>
+      <li><code>su – hdbadm</code> To switch user.</li>
+      <li><code>./HDB stop</code> Command to stop HANA DB</li>
+      <li><code>./HDB start</code> Command to start HANA DB</li>
+    </ul>
+  </li>
+  <li>The default password of user hdbadm is HANAabcd1234. You should change this password using the Linux command <code>passwd hdbadm</code> after creating your instance. Enter your new password (described above) when HANA Studio prompts you for the <code>&lt;SID&gt;adm</code> logon to perform administrative tasks.</li>
+</ul>
+
+<h2 id="next-steps-1">Next Steps</h2>
+<p><img src="http://go.sap.com/dam/application/imagelibrary/pictograms/274000/274942.png" alt="" />
+Next steps is option, hence, may not be present.
+<a href="http://go-qa.sap.com/developer/tutorials/hana-web-development-workbench.html">Hello World!</a></p>

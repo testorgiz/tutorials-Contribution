@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Using Showdown with and without jQuery: demo</title>
+    <style>
+     textarea, #preview { width: 500px; height: 150px; margin-bottom: 1em; padding: .5em 1em; }
+     #preview { border: 1px solid #666; }
+    </style>
+    <script src="/assets/hana-data_files/jquery-1.js"></script>
+	<script src="/assets/hana-data_files/picturefill.js"></script>
+	<script src="/assets/hana-data_files/jquery_003.js"></script>
+	<script src="/assets/hana-data_files/jquery_002.js"></script>
+	<script src="/assets/hana-data_files/jquery_011.js"></script>
+	<script src="/assets/hana-data_files/jquery_004.js"></script>
+	<script src="/assets/hana-data_files/jquery_010.js"></script>
+	<script src="/assets/hana-data_files/jquery_005.js"></script><style type="text/css">.js-slide-hidden{position:absolute !important;left:-9999px !important;top:-9999px !important;display:block !important}</style>
+	<script src="/assets/hana-data_files/jquery_008.js"></script>
+	<script src="/assets/hana-data_files/jquery.js"></script>
+	<script src="/assets/hana-data_files/jquery_009.js"></script>
+	<script src="/assets/hana-data_files/jquery_007.js"></script>
+	<script src="/assets/hana-data_files/jquery_013.js"></script>
+	<script src="/assets/hana-data_files/jquery_014.js"></script>
+	<script src="/assets/hana-data_files/jquery_012.js"></script><style type="text/css">.js-tab-hidden{position:absolute !important;left:-9999px !important;top:-9999px !important;display:block !important}</style>
+	<script src="/assets/hana-data_files/prism.js"></script>
+	<script src="/assets/hana-data_files/jquery_006.js"></script>
+    <script src="/assets/hana-data_files/github.js"></script>
+</head>
+<body>
+
+<p>path must be relative url: tutorials/onedx-team-meeting/onedx-team-meeting.md - should not include the absolute url</p>
+    URL: <input id="githubPath" type="text" name="githubPath"><br/>
+    <input id="getMarkdown" type="button" value="Submit"> <br/>
+
+<textarea autofocus>This is a **test** ok.</textarea>
+
+
+<script src="https://pagedown.googlecode.com/hg/Markdown.Converter.js"></script>
+<script src="https://pagedown.googlecode.com/hg/Markdown.Sanitizer.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>-->
+<script>
+    var $textarea = $('textarea'),
+        $preview = $('<div id="preview" />').insertAfter($textarea),
+        convert = new Markdown.getSanitizingConverter().makeHtml;
+
+	/* path must be relative url: tutorials/onedx-team-meeting/onedx-team-meeting.md - should not include the absolute url */
+
+    $("#getMarkdown").click(function() {
+        //alert( "Handler for .click() called." );
+        var git = window.returnExportsGlobal;
+        /*var github = new git({
+            username: "lpareek",
+            password: "Timnghp22!",
+            auth: "basic"
+        });*/
+
+        var github = new git({
+          token: "a183d5b9a37ff098088850c08b3d8a942ca5d380",
+          auth: "oauth"
+      });
+
+        var repo = github.getRepo('SAPDocuments', 'Test-Tutorials');
+//        var repo = github.getRepo('testorgiz', 'test-tutorials');
+        /*repo.show(function(err, repo) {
+            alert(repo);
+        });*/
+		
+		/*repo.getTree('master', function(err, tree) {
+		alert(tree);
+		});*/
+
+//this works - read markdown file
+        repo.read("master", $("#githubPath").val(), function(err, contents) {
+            //$preview.html(convert(contents));
+            var converter = new Showdown.converter();
+            var ret = converter.makeHtml(contents);
+            $preview.html(ret);
+        });
+/*
+// read commits
+var options = {}
+options.since = '2015-10-23';
+options.path = $("#githubPath").val();
+        var contents1 = repo.getCommits(options, function(err, contents) {
+            //$preview.html(convert(contents));
+
+            $preview.html(contents);
+        });
+
+        var commit = repo.getCommit("gh-pages", "bd86da54d490ab367de51d349410a5619fb58597", function(err, contents) {
+            //$preview.html(convert(contents));
+
+            $preview.html(contents);
+        });
+*/    });
+
+ $(function() {
+  // When using more than one `textarea` on your page, change the following line to match the one you’re after
+  $textarea.keyup(function() {
+   $preview.html(convert($textarea.val()));
+  }).trigger('keyup');
+ }());
+
+
+
+</script>
+</body>
+</html>
