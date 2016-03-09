@@ -19,7 +19,7 @@ In this tutorial you will learn how to expose RESTful services using a library c
 
 1. First, we need to add the dependency references to Apache CXF in the **pom.xml** file. Insert the XML snippet below just below the **Servlet** dependency section.
 
-    ```xml
+    ```
     <!-- Apache CXF -->
     <dependency>
         <groupId>org.apache.cxf</groupId>
@@ -42,7 +42,7 @@ In this tutorial you will learn how to expose RESTful services using a library c
  
 2. We also need to specify the corresponding CXF version property at the end of the **<properties>** tag in **pom.xml**. See the image below for where to insert this snippet. 
 
-    ```xml	
+    ```
     <org.apache.cxf-version>3.0.0</org.apache.cxf-version>
     ```
 
@@ -97,7 +97,7 @@ In this tutorial you will learn how to expose RESTful services using a library c
 
 5. Open the **web.xml** configuration file and copy and paste the following lines of code in between the closing **</servlet-mapping>** and the opening **<login-config>** tags:
 
-    ```xml
+    ```
     <servlet>
     	<servlet-name>CXFServlet</servlet-name>
     	<servlet-class>
