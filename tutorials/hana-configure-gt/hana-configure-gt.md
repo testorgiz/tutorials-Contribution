@@ -1,137 +1,91 @@
 ---
-layout: tutorial
-title: HANA 101 - Getting Started, and connecting the Web Workbench
-description: Access your first data in a native HANA Application.
-tags: [products:tech/73554900100700000996, products:tech/67838200100800004076, tutorial:technology/sql, products:tech/73554900100700000996/67837800100800004901]
+title: End-to-End Weather App Scenario Part 1
+description: Create a basic Java app in SAP HANA Cloud Platform
+tags: [tutorial:interest/gettingstarted, tutorial:interest/cloud, tutorial:product/hcp, tutorial:technology/java]
 ---
+
 ## Prerequisites  
-[How to create an SAP HANA Developer Edition in the Cloud](http://go-qa.sap.com/developer/tutorials/setup-hana-for-cloud.html)
+ - [Getting Started with the SAP HANA Cloud Platform Tools for Java](https://hcp.sap.com/developers/TutorialCatalog/jav100_01_java_setup_eclipse.html)
+ - Note: JDK 1.6 or 1.7 are required. If you have a later version of Java installed, please install [JDK 1.7](http://www.oracle.com/technetwork/pt/java/javase/downloads/jdk7-downloads-1880260.html) and temporarily change your JAVA_HOME environment variable to point to it.
 
 ## Next Steps
-Next steps is option, hence, may not be present.
-[Hello World!](http://go-qa.sap.com/developer/tutorials/hana-web-development-workbench.html)
-
+ - [End-to-End Weather App Scenario Part 2](http://go.sap.com/developer/tutorials/hcp-java-weatherapp-part2.html)
+ 
 ## Details
-
 ### You will learn  
-
-1. How to use HANA Studio Perspectives
-2. How to create a connection to the HANA back end
-3. Getting started with the HANA Web based development workbench
-
-### Time to Compete
-
-Beginners will take 30 minutes to finish this tutorial.
-
-## Host Configuration
-
-Access your HANA instance that was created in ["How to create an SAP HANA Developer Edition in the Cloud"](http://go-qa.sap.com/developer/tutorials/setup-hana-for-cloud.html).
-
-Chose Notepad as the Open with Editor.
-
-![](https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_host_02.png)
-
-Replace the current IP address in front of the hostname hanapm with the specific IP address for this workshop which was supplied by your instructor.
-
-![](https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_host_03.png)
-
-Save the content. Exit Notepad.
-
-![](https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_host_04.png)
+In this tutorial series you will start from zero and develop a fully operational weather application. In total there are 10 parts to the series, each building on top of its predecessor. The entire source code of both the final and all intermediate parts are available on [Github](https://github.com/SAP/cloud-weatherapp).
 
 
-### Getting Help
+The constituent parts of this tutorial series cover the following:
 
-If you need addition help resources beyond this document, we would suggest the following content:
+ - How to create a simple web application on HCP
+ - How to apply authentication and authorization
+ - How to expose business functionality as an external RESTful API
+ - How to add JPA-based persistence to your web app
+ - How to leverage the multi-tenancy features of SAP HANA Cloud Platform
+ - How to use the connectivity service to consume external services
+ - How to add a mobile-friendly UI5-based user interface to the web application
 
-* The Online Help at <http://help.sap.com/hana/SAP_HANA_Developer_Guide_en.pdf>
-* The integrated help within SAP HANA Studio (content  identical to the above mentioned online help)
-* SAPUI5 SDK (installed on your HANA Server) /sap/ui5/1/sdk/index.html#content/Overview.html
+In Part 1, you will develop a basic Java app to ensure that both Eclipse IDE and the local SAP HANA Cloud Platform (HCP) tooling have been properly installed and configured.
 
-### Source code solutions
+### Time to Complete
+**10 min**
 
-All source code solutions and templates for all exercises in this document can be found in the following webpage: <http://www.cnn.com/>
+1. Create a new dynamic web project by selecting the “New > Dynamic Web Project” menu entry and enter the following information:
 
->### Warning
->Both the Amazon AWS and Microsoft Azure accounts will charge you for time on those cloud systems.
+    - **Name:** `weatherapp`
+    - **Target Runtime:** `Java Web`
+    - **Dynamic Web Module Version:** `2.5`
+ 
+ Click on **Next**
+ 
+ ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part1/e2e_01-1.png)
 
->If you want to create a free developer account - with no cloud VM charges - on the HANA Cloud Platform, do not follow this tutorial.  Click here to sign up for the account, and then proceed to the next tutorial.
+2. Remove the standard “src” Source folder and add a new one called `src/main/java` to create a project that adheres to the standard Maven Directory Layout.
 
->Note must be displayed as a "blockquote" with red backgrounnd, example, [](http://go.sap.com/developer/tutorials/setup-hana-for-cloud.html).
+    Change the default output folder to `target/classes` 
 
+    Click on **Next**. 
+ 
+    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part1/e2e_01-2.png) 
 
-## HANA Studio Configuration
+3. Change the Content Directory from `WebContent` to `src/main/webapp` (again, to adhere to Maven conventions) 
 
-### ![](http://go.sap.com/dam/application/shared/icons/icon_gold_circle_01.svg) Adding the HANA Studio Perspectives
+    Click on **Finish**.
 
-Open the HANA Studio via the Windows Start menu or via the Icon on your Start bar.
+    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part1/e2e_01-3.png)
 
-If your HANA Studio opens to the following Overview screen, simply press Workbench to return to the full Studio tooling.
-![](https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_studio_01.png)
+4. Create a new Servlet by selecting the “New > Servlet” menu entry and enter the following information:
 
-To support the new developer centric workflow, there are two additional Eclipse Perspectives which have been added to SAP HANA Studio. These are not displayed by default.
+    - **Package name:** `com.sap.hana.cloud.samples.weatherapp.web`
+    - **Class name:** `HelloWorldServlet`
 
-In the upper right corner of your SAP HANA Studio, there is an add Perspectives button.  Press this.
-![](https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_studio_02.png)
+    Click on **Next**.
+ 
+    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part1/e2e_01-4.png)
+ 
+5. Change the URL Mapping from `/HelloWorldServlet` to `/hello` to make it a bit easier to memorize.
 
->### Note
+    Click on **Finish**.
+ 
+    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part1/e2e_01-5.png)
 
->This is a note.
+6. Now we need to do our first bit of coding. Navigate to the servlet’s **doGet()** method and replace the **TODO comment** with the following line of code and save your changes:
 
->Note must be displayed as a "blockquote" with blue backgrounnd, example, [](http://hcp.sap.com/developers/TutorialCatalog/jav100_01_java_setup_eclipse.html).
+    ```javascript
+    response.getWriter().println("Hello World!");
+    ```
 
-Add the SAP HANA Development perspective. This is the perspective you should be using for almost this entire workshop.
-![](https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_studio_03.png)
+    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part1/e2e_01-6.png)
 
-### ![](http://go.sap.com/dam/application/shared/icons/icon_gold_circle_02.svg) Create a connection to the HANA server
-Make sure you are in the SAP HANA Development perspective by clicking on the button.
-![](https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_studio_06.png)
+7. Deploy the application to your local server by using the **Run as > Run on Server** context menu of the **HelloWorldServlet** node in the Project Explorer view.
 
->### Information
+8. Choose the **Manually define a new Server** option and select the **SAP / Java Web Server** option from the server selection. Make sure to select **Java Web** as the server runtime environment. 
 
->This is "Information" blockqoute.
+    Click on **Finish**. The internal browser is now started and displays the traditional message marking the first step into a new programmer’s journey. 
 
->Note must be displayed as a "blockquote" with yellow backgrounnd, example, [](http://hcp.sap.com/developers/TutorialCatalog/jav100_3_maven_based_projects.html).
+    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part1/e2e_01-8.png)
 
-Click on the “Systems” view.  Right click in the white space below this tab and choose “Add System…”.
-![](https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_studio_07.png)
-
-Input the server hostname: hanapm
-
-Input the instance number: 00
-
-Enter a meaningful description of your choice.  Press the Next button.
-![](https://raw.githubusercontent.com/testorgiz/test-tutorials/master/tutorials/hana-configure-gt/hana_01_studio_08.png)
-
-## Optional - Use SSH to log in to the Linux OS
-Connecting to the underlying Linux OS in the cloud instances is different for each provider.  Follow the instructions for the cloud provider you have chosen to host HANA.
-
-### Amazon AWS
-To connect to Amazon AWS, you must use the key-pair that was provided by Amazon when the instance was created.
-
-#### Connecting to AWS from Windows
-
-1. Using the key-pair file (\*.pem) downloaded from Amazon, create a private key file for putty using puttygen.exe.  
-2. Open PuTTY on your computer, and enter the IP Address for your instance in the Host Name (or IP address) field. Click the ```Open``` button.
-3. When the connection is opened, enter ‘root’ as the user. You can now change the default password for the hdbadm OS user with the command ```passwd hdbadm```. Your new password must be entered twice, and it will be checked to ensure it is sufficiently secure. Once you have entered an appropriate password twice, then you are finished!
-
-For more detailed instructions, check out the [Amazon AWS guide to Connect Your Amazon EC2 Instance](http://docs.aws.amazon.com/gettingstarted/latest/computebasics-linux/getting-started-deploy-app-connect.html).
-
-#### Connecting to AWS from Mac or Unix
-
-From Linux or Mac OS-X, in terminal window, run this command: ```ssh -i [hanakey].pem [IP Address] -l root```  (Replace [hanakey].pem with the name of your key-pair file, and [IP Address] with the IP address of your instance.)
-
-For more detailed instructions, check out the [Amazon AWS guide to Connect Your Amazon EC2 Instance](http://docs.aws.amazon.com/gettingstarted/latest/computebasics-linux/getting-started-deploy-app-connect.html).
-
-## A few notes
-* Some corporate firewalls may not allow SSH to Amazon cloud.  You may have to work with your IT organization to resolve this.
-* User hdbadm owns sap software in the Linux instance. To restart the database without restarting the entire Linux instance, switch to user hdbadm and perform stop and start operations using the following commands:
-    * ```su – hdbadm``` To switch user.
-    * ```./HDB stop``` Command to stop HANA DB
-    * ```./HDB start``` Command to start HANA DB
-* The default password of user hdbadm is HANAabcd1234. You should change this password using the Linux command ```passwd hdbadm``` after creating your instance. Enter your new password (described above) when HANA Studio prompts you for the ```<SID>adm``` logon to perform administrative tasks.
 
 ## Next Steps
-![](http://go.sap.com/dam/application/imagelibrary/pictograms/274000/274942.png)
-Next steps is option, hence, may not be present.
-[Hello World!](http://go-qa.sap.com/developer/tutorials/hana-web-development-workbench.html)
+ - [End-to-End Weather App Scenario Part 2](http://go.sap.com/developer/tutorials/hcp-java-weatherapp-part2.html)
