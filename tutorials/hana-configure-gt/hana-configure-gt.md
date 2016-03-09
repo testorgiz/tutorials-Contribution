@@ -37,9 +37,9 @@ In Part 1, you will develop a basic Java app to ensure that both Eclipse IDE and
     - **Target Runtime:** `Java Web`
     - **Dynamic Web Module Version:** `2.5`
  
- Click on **Next**
+    Click on **Next**
  
- ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part1/e2e_01-1.png)
+    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part1/e2e_01-1.png)
 
 2. Remove the standard “src” Source folder and add a new one called `src/main/java` to create a project that adheres to the standard Maven Directory Layout.
 
