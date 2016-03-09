@@ -65,37 +65,37 @@ In this tutorial you will learn how to add authenication and authorization to yo
 2. After successful authentication the application can access users’ principal information using standard servlet APIs. To illustrate that, make the following changes to the **HelloWorldServlet**:
 
     ```java
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-{
-	    String user = request.getRemoteUser();
-	    if (user != null)
-	    {
-	        response.getWriter().println("Hello, " + user);
-	    }
-	    else
-	    {
-	        LoginContext loginContext;
-		    try 
-	        {
-	             loginContext =  ⏎LoginContextFactory.createLoginContext("FORM");
-			 		loginContext.login();
-	             response.getWriter().println("Hello, " +  request.getRemoteUser());
-	        } 
-	        catch (LoginException ex) 
-	        {
-	             ex.printStackTrace();
-		    }
-	    }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    {
+    	    String user = request.getRemoteUser();
+    	    if (user != null)
+    	    {
+    	        response.getWriter().println("Hello, " + user);
+    	    }
+    	    else
+    	    {
+    	        LoginContext loginContext;
+    		    try 
+    	        {
+    	             loginContext =  ⏎LoginContextFactory.createLoginContext("FORM");
+    			 		loginContext.login();
+    	             response.getWriter().println("Hello, " +  request.getRemoteUser());
+    	        } 
+    	        catch (LoginException ex) 
+    	        {
+    	             ex.printStackTrace();
+    		    }
+    	    }
     }
-protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-{	
-		doGet(request, response);
-}
- ```
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    {	
+    		doGet(request, response);
+    }
+    ```
 
- >Note: The reason we also had to implement the “doPost()” method is related to specifics of the SAML 2.0 authentication process flow. For more information please refer to the [respective parts](https://help.hana.ondemand.com/help/frameset.htm?e637f62abb571014857cb0232adc43a7.html) of the SAP HANA Cloud Platform online documentation.
+    >Note: The reason we also had to implement the “doPost()” method is related to specifics of the SAML 2.0 authentication process  flow. For more information please refer to the [respective parts](https://help.hana.ondemand.com/help/frameset.htm?e637f62abb571014857cb0232adc43a7.html) of the SAP HANA Cloud Platform online documentation.
 
- ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part3/e2e_03-2.png)
+    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part3/e2e_03-2.png)
 
 
 3. To remove the syntax errors, you need to organize import statements via the respective context menu **Source > Organize imports** of the main code editor window. Save your changes.
