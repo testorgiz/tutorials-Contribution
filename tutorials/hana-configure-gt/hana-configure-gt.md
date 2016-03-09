@@ -1,119 +1,131 @@
 ---
-title: End-to-End Weather App Scenario Part 3
-description: Adding authentication and authorization to your Java app.
+title: End-to-End Weather App Scenario Part 5
+description: Adding RESTful services to your app
 tags: [tutorial:interest/gettingstarted, tutorial:interest/cloud, tutorial:product/hcp, tutorial:technology/java]
 ---
 
 ## Prerequisites  
- - [End-to-End Weather App Scenario Part 2](http://go.sap.com/developer/tutorials/hcp-java-weatherapp-part2.html)
+ - [End-to-End Weather App Scenario Part 4](http://go.sap.com/developer/tutorials/hcp-java-weatherapp-part4.html)
 
 ## Next Steps
- - [End-to-End Weather App Scenario Part 4](http://go.sap.com/developer/tutorials/hcp-java-weatherapp-part4.html)
+ - [End-to-End Weather App Scenario Part 6](http://go.sap.com/developer/tutorials/hcp-java-weatherapp-part6.html)
  
 ## Details
 ### You will learn  
-In this tutorial you will learn how to add authenication and authorization to your Java app.
+In this tutorial you will learn how to expose RESTful services using a library called [Apache CXF](http://cxf.apache.org/), which is one of the most often used implementations of the [JAX-RS](https://jax-rs-spec.java.net/) standard. 
 
 ### Time to Complete
 **10 min**
- 
 
- >Please note that HCP adheres to Java standards to manage authentication and authorization.
-
-1. In order to activate authentication and establish authorization we have to apply the respective security settings in the **web.xml** configuration file. The full **web.xml** contents are below:
+1. First, we need to add the dependency references to Apache CXF in the **pom.xml** file. Insert the XML snippet below just below the **Servlet** dependency section.
 
     ```xml
-    <?xml version="1.0" encoding="UTF-8"?>
-    <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-    <display-name>cloud-weatherapp</display-name>
-    <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    </welcome-file-list>
-    <servlet>
-    <display-name>HelloWorldServlet</display-name>
-    <servlet-name>HelloWorldServlet</servlet-name>
-    <servlet-class>
-        com.sap.hana.cloud.samples.weatherapp.web.HelloWorldServlet
-    </servlet-class>
-    </servlet>
-    <servlet-mapping>
-    <servlet-name>HelloWorldServlet</servlet-name>
-    <url-pattern>/hello</url-pattern>
-    </servlet-mapping>
-    <login-config>
-    <auth-method>FORM</auth-method>
-    </login-config>
-    <security-constraint>
-    <web-resource-collection>
-        <web-resource-name>Protected Area</web-resource-name>
-        <url-pattern>/*</url-pattern>
-    </web-resource-collection>
-    <auth-constraint>
-        <!-- Role Everyone will not be assignable -->
-        <role-name>Everyone</role-name>
-    </auth-constraint>
-    </security-constraint>
-    <security-role>
-    <description>All SAP HANA Cloud Platform users</description>
-    <role-name>Everyone</role-name>
-    </security-role>
-    </web-app>
+    <!-- Apache CXF -->
+    <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-jaxws</artifactId>
+        <version>${org.apache.cxf-version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+        <version>${org.apache.cxf-version}</version>
+    </dependency>
+    <dependency>
+        <groupId>javax.ws.rs</groupId>
+        <artifactId>javax.ws.rs-api</artifactId>
+        <version>2.0</version>
+    </dependency>
     ```
 
-    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part3/e2e_03-1.png)
+    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part5/e2e_05-1.png)
  
-2. After successful authentication the application can access users’ principal information using standard servlet APIs. To illustrate that, make the following changes to the **HelloWorldServlet**:
+2. We also need to specify the corresponding CXF version property at the end of the **<properties>** tag in **pom.xml**. See the image below for where to insert this snippet. 
+
+    ```xml	
+    <org.apache.cxf-version>3.0.0</org.apache.cxf-version>
+    ```
+
+    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part5/e2e_05-2.png)
+ 
+3. Next, create a new Class via the context menu entry **New > Class** of the **weatherapp** node in the Project Explorer. Enter the following information:
+
+    - **Package name:** `com.sap.hana.cloud.samples.weatherapp.api`
+    - **Classname:** `AuthenticationService`
+    
+    Click on **Finish**.
+
+    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part5/e2e_05-3.png)
+ 
+4. Replace the contents of **AuthenticationService.java** with the following and save your changes.
 
     ```java
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    package com.sap.hana.cloud.samples.weatherapp.api;
+    
+    import javax.ws.rs.GET;
+    import javax.ws.rs.Path;
+    import javax.ws.rs.Produces;
+    import javax.ws.rs.core.Context;
+    import javax.ws.rs.core.MediaType;
+    import javax.ws.rs.core.SecurityContext;
+    
+    @Path("/auth")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public class AuthenticationService 
     {
-    	    String user = request.getRemoteUser();
-    	    if (user != null)
-    	    {
-    	        response.getWriter().println("Hello, " + user);
-    	    }
-    	    else
-    	    {
-    	        LoginContext loginContext;
-    		    try 
-    	        {
-    	             loginContext =  ⏎LoginContextFactory.createLoginContext("FORM");
-    			 		loginContext.login();
-    	             response.getWriter().println("Hello, " +  request.getRemoteUser());
-    	        } 
-    	        catch (LoginException ex) 
-    	        {
-    	             ex.printStackTrace();
-    		    }
-    	    }
-    }
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-    {	
-    		doGet(request, response);
+    	@GET
+    	@Path("/")
+    	@Produces({ MediaType.TEXT_PLAIN })
+    	public String getRemoteUser(@Context SecurityContext ctx)
+    	{
+    		String retVal = "anonymous";
+    		try
+    		{
+    			retVal = ctx.getUserPrincipal().getName();
+    		}
+    		catch (Exception ex)
+    		{
+    			ex.printStackTrace(); // lazy 
+    		}
+    		return retVal;
+    	}
     }
     ```
-
-    >Note: The reason we also had to implement the “doPost()” method is related to specifics of the SAML 2.0 authentication process  flow. For more information please refer to the [respective parts](https://help.hana.ondemand.com/help/frameset.htm?e637f62abb571014857cb0232adc43a7.html) of the SAP HANA Cloud Platform online documentation.
-
-    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part3/e2e_03-2.png)
+    
+    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part5/e2e_05-4.png)
 
 
-3. To remove the syntax errors, you need to organize import statements via the respective context menu **Source > Organize imports** of the main code editor window. Save your changes.
+5. Open the **web.xml** configuration file and copy and paste the following lines of code in between the closing **</servlet-mapping>** and the opening **<login-config>** tags:
 
-4. Deploy/publish the updated application (you should know the drill by now).
+    ```xml
+    <servlet>
+    	<servlet-name>CXFServlet</servlet-name>
+    	<servlet-class>
+    		org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet
+    	</servlet-class>
+    	<init-param>
+    		<param-name>jaxrs.serviceClasses</param-name>
+    		<param-value> com.sap.hana.cloud.samples.weatherapp.api.AuthenticationService</param-value>
+    	</init-param>
+    	<load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>CXFServlet</servlet-name>
+    	<url-pattern>/api/v1/*</url-pattern>
+    </servlet-mapping>
+    ```
 
-5. Since we are working with a local server so far we need to provide a local user repository to authenticate against. For this purpose, double-click on the local server node in the **Servers** view to open the configuration window.
+    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part5/e2e_05-5.png)
 
- At the bottom of that window there are four tabs: Overview, Connectivity, Users and Loggers.
+6. With this, we have registered (Apache) CXF as a Servlet that listens to incoming requests using the URL-pattern: `/api/v1/*`. Furthermore, we registered our AuthenticationService class as one of the RESTful services. During startup, CXF will introspect the class and use the provided JAX-RS annotations to properly configure our service.
 
- Within the Users tab you can manage local users. Let’s create a simple test user with the user id “test” and a password of your choice. Save your changes.
+    Save your changes and publish/deploy your application.
 
- ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part3/e2e_03-5.png)
+7. Navigate to the following URL: <http://localhost:8080/weatherapp/api/v1/auth>. After successful authentication you should see your username.
 
-6. Now, when you navigate to the HelloWorldServlet with the URL <http://localhost:8080/weatherapp/hello> you’ll first be prompted to enter your user credentials before you are forwarded to the requested servlet. If the authentication was successful you should now see a personalized welcome message instead of the dull “Hello World!” we saw earlier. 
+    ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part5/e2e_05-7.png)
 
- ![](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/hcp-java-weatherapp-part3/e2e_03-6.png)
  
-
 ## Next Steps
- - [End-to-End Weather App Scenario Part 4](http://go.sap.com/developer/tutorials/hcp-java-weatherapp-part4.html)
+ - [End-to-End Weather App Scenario Part 6](http://go.sap.com/developer/tutorials/hcp-java-weatherapp-part6.html)
+
