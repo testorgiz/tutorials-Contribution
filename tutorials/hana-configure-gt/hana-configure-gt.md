@@ -59,7 +59,7 @@ In this tutorial you will learn how to expose RESTful services using a library c
  
 4. Replace the contents of **AuthenticationService.java** with the following and save your changes.
 
-```markup
+```java
     package com.sap.hana.cloud.samples.weatherapp.api;
     
     import javax.ws.rs.GET;
