@@ -1,6 +1,6 @@
 ---
 
-title: Continuous Integration (CI) Best Practices with SAP: Artifact Repository
+title: demo
 description: Part 3.3: Setting up a Nexus Instance.
 tags: [  tutorial>intermediate, tutorial:type/project  ]
 
@@ -12,8 +12,8 @@ tags: [  tutorial>intermediate, tutorial:type/project  ]
 
 ## Next Steps
 
-  - [Landscape Configuration](/ci-best-practices-landscape.html)
-  - [Back to the Navigator](/ci-best-practices-intro.html)
+  - [Landscape Configuration](http://go.sap.com/developer/tutorials/ci-best-practices-landscape.html)
+  - [Back to the Navigator](http://go.sap.com/developer/tutorials/ci-best-practices-intro.html)
 
 ---
 
@@ -89,5 +89,5 @@ This document refers to a Nexus 2 release. In the future, Nexus 3 might also be 
 
 ## Next Steps
 
-  - [Landscape Configuration](/ci-best-practices-landscape.html)
-  - [Back to the Navigator](/ci-best-practices-intro.html)
+  - [Landscape Configuration](http://go.sap.com/developer/tutorials/ci-best-practices-landscape.html)
+  - [Back to the Navigator](http://go.sap.com/developer/tutorials/ci-best-practices-intro.html)
