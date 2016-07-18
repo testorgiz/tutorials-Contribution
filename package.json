@@ -1,0 +1,47 @@
+{
+  "name": "tutorial-contribution",
+  "version": "1.0.0",
+  "description": "Contributions repo for tutorial proposals - only accessible by approved authors",
+  "main": "README.MD",
+  "private": true,
+  "license": "Apache-2.0",
+  "contributors": [
+    { "name": "Alexander Graebe", "email": "alex.graebe@gmail.com"},
+    { "name": "Jim Jaquet", "email": "jjaquet@gmail.com"},
+    { "name": "Lalit Pareek", "email": "lalit.pareek@sap.com"},
+    { "name": "Alexander Baum", "email": "baum_alex@gmx.net"},
+    { "name": "Laurien Lummer", "email": "laurien.lummer@clbt.de"}
+  ],
+  "scripts": {
+    "test": "node test.js -pgt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SAPDocuments/Tutorial-Contribution.git"
+  },
+  "keywords": [
+    "sap",
+    "gthub",
+    "tutorials"
+  ],
+  "author": "SAP",
+  "bugs": {
+    "url": "https://github.com/SAPDocuments/Tutorial-Contribution/issues"
+  },
+  "homepage": "https://github.com/SAPDocuments/Tutorial-Contribution#readme",
+  "engines": {
+    "node": "=>4.0.0",
+    "npm": "=>2.11.3"
+   },
+  "dependencies" : {},
+  "devDependencies": {
+    "color-log": "0.0.2",
+    "command-line-args": "^3.0.0",
+    "inquirer": "^1.0.3",
+    "markdown-link-check": "^1.0.1",
+    "markdown-spellcheck": "^0.10.0",
+    "mkdirp": "^0.5.1",
+    "progress": "^1.1.8",
+    "recursive-readdir": "^2.0.0"
+  }
+}
