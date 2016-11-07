@@ -2,7 +2,7 @@
 
 title: CI Best Practices Guide: Build Scheduler
 description: Part 3.2: Setting up a Jenkins Instance.
-tags: [  tutorial>intermediate, products>sap-hana\,-express-edition, products>sap-s/4hana>sap-s/4hana, products>sap-s/4hana\,-on\-premise-edition-1511 ]
+tags: [  tutorial>intermediate, products>sap-hana\,-express-edition, products>sap-s/4hana>sap-s/4hana, products>sap-s/4hana>sap-s/4hana>sap-s/4hana\,-on\-premise-edition-1511 ]
 
 ---
 
