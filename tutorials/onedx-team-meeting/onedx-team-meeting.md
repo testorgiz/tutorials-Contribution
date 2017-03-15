@@ -233,6 +233,29 @@ In this document, we restrict ourselves to Linux as operating system for the sla
         
 12. Either the slave already connects automatically or you explicitly have to choose the "Connect" button. You should see the executors readily waiting for jobs.
 
+11. YAML code block
+```
+http_interactions:
+- request:
+    method: get
+    uri: http://example.com/
+    body: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/html;charset=utf-8
+      Content-Length:
+      - '26'
+    body: This is the response body
+    http_version: '1.1'
+  recorded_at: Tue, 01 Nov 2011 04:58:44 GMT
+recorded_with: VCR 2.0.0
+```
+
 #### Further Enhancements
 
 - Like for the Jenkins master, a firewall could make sense, this time rather to guarantee the isolation of the builds to ensure reproducible build results independent on any side effect.
