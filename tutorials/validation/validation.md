@@ -109,3 +109,10 @@ and
 | col 3 is      | some wordy text | $1600 |
 | col 2 is      | centered        |   $12 |
 | zebra stripes | are neat        |    $1 |
+
+[ACCORDION-BEGIN [Step 6: ](Validate the SAP Cloud Platform cockpit URL)]
+
+Close the Enter the **News and Announcements** dialog box, copy the URL for your SAP Cloud Platform **trial account** cockpit, paste it in the text field below and click **Validate**.
+
+[VALIDATE_6]
+[ACCORDION-END]
