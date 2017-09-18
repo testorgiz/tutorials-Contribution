@@ -1,0 +1,8 @@
+[VALIDATE_6]
+###Rule
+regex-with-id-exact-match
+
+###Match
+https://account.hanatrial.ondemand.com/cockpit#/acc/[id]trial/accountdashboard
+
+[VALIDATE_6]
